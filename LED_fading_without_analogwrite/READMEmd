@@ -1,0 +1,64 @@
+# LED Fading Without analogWrite 🌗✨
+
+This project demonstrates how to fade an LED in and out using **manual PWM** with an Arduino — without using the built-in `analogWrite()` function.
+
+---
+
+## 🔧 Project Overview
+
+- Smoothly fades an LED from OFF to ON and back
+- Uses software-based PWM using `digitalWrite()` and `delayMicroseconds()`
+- Great for learning about timing and brightness control without hardware PWM
+
+---
+
+## 🧾 Components Required
+
+| Component        | Quantity |
+|------------------|----------|
+| Arduino UNO      | 1        |
+| LED              | 1        |
+| 220Ω Resistor    | 1        |
+| Breadboard       | 1        |
+| Jumper Wires     | As needed |
+
+---
+
+## 🔗 Tinkercad Simulation
+ (https://www.tinkercad.com/things/jHqdCQu4TGP-fade-led-without-analogwrite?sharecode=PlZWvRnQ-Om4Ba8thAMIMZ-jZHh_pDrhIqkE_Jmaqg0)
+
+---
+
+## 🧠 Arduino Code
+
+```cpp
+int led = 9;
+int brightness = 0;
+int fadeAmount = 5;
+
+void setup() {
+  pinMode(led, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  for (int i = 0; i < 255; i++) {
+    if (i < brightness) {
+      digitalWrite(led, HIGH);
+    } else {
+      digitalWrite(led, LOW);
+    }
+    delayMicroseconds(100);
+  }
+  
+  Serial.println(brightness);
+  
+  brightness += fadeAmount;
+  
+  if (brightness <= 0 || brightness >= 255) {
+    fadeAmount = -fadeAmount;
+  }
+  
+  delay(10); //slow down fading
+}
+
