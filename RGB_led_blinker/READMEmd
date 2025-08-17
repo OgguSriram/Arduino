@@ -1,0 +1,68 @@
+# RGB LED Blinker 🔴🟢🔵
+
+This mini project demonstrates how to control an RGB LED using an Arduino and serial commands. Each character sent over Serial will blink the respective color of the RGB LED.
+
+## 🧠 Project Overview
+
+- Blinks **Red**, **Green**, or **Blue** LED based on serial input (`R`, `G`, `B`)
+- Turns **off** all LEDs with input `O`
+- Can be simulated in Tinkercad for easy testing and learning
+
+## 🧾 Components Used
+
+- Arduino UNO
+- RGB LED (common cathode)
+- 3 × 1kΩ Resistors
+- Breadboard
+- Jumper wires
+- USB Cable
+
+## 🔗 Tinkercad Simulation
+
+[🔗 Click here to open the Tinkercad simulation](https://www.tinkercad.com/things/dCDswIet4Rv-rgb-led-blinker?sharecode=kY3c0ZgK30lZHhE5whOEN0mz7kGcb2Ke46shRX3D0yg)  
+
+
+## 🧾 Arduino Code
+
+```cpp
+int red = 13;
+int green = 12;
+int blue = 9;
+
+void setup() {
+  pinMode(red, OUTPUT);
+  pinMode(green, OUTPUT);
+  pinMode(blue, OUTPUT);
+  Serial.begin(9600); 
+}
+
+void loop() {
+  if (Serial.available() == 1) {  
+    char var = Serial.read();    
+
+    if (var == 'R') {
+      digitalWrite(red, HIGH);
+      delay(500);
+      digitalWrite(red, LOW);
+    }
+    else if (var == 'G') {
+      digitalWrite(green, HIGH);
+      delay(500);
+      digitalWrite(green, LOW);
+    }
+    else if (var == 'B') {
+      digitalWrite(blue, HIGH);
+      delay(500);
+      digitalWrite(blue, LOW);
+    }
+    else if (var == 'O') {
+      digitalWrite(red, LOW);
+      digitalWrite(green, LOW);
+      digitalWrite(blue, LOW);
+    }
+    else{
+      Serial.println("Invalid input");
+   }
+  }
+}
+
